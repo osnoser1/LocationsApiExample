@@ -1,8 +1,9 @@
+using LocationsApiExample.Core.Startup;
 using LocationsApiExample.Core.Transformers;
+using LocationsApiExample.Infrastructure;
 using Microsoft.AspNetCore.Mvc.ApplicationModels;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.OpenApi.Any;
-using Microsoft.OpenApi.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,15 +17,23 @@ builder.Services.AddControllers(options =>
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen(c =>
-    c.MapType<TimeOnly>(() => new OpenApiSchema
+    c.MapType<TimeOnly>(() => new()
     {
         Type = "string",
         Format = "string",
-        Example = new OpenApiString(new TimeOnly(8, 0).ToString("r")),
+        Example = new OpenApiString(new TimeOnly(8, 0).ToString("r"))
     })
 );
 
+builder.Services.AddSqlServer<LocationDbContext>(builder.Configuration.GetConnectionString("LocationDatabase"));
+
 var app = builder.Build();
+using (var scope = app.Services.CreateScope())
+{
+    var context = scope.ServiceProvider.GetRequiredService<LocationDbContext>();
+    context.Database.Migrate();
+    LocationSeeder.Seed(context);
+}
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())

@@ -1,0 +1,20 @@
+Name,OpenTime,CloseTime
+Pharmacy A,08:00:00,16:00:00
+Bakery B,09:00:00,13:00:00
+Barber Shop C,10:00:00,18:00:00
+Supermarket D,07:00:00,23:00:00
+Candy Store E,11:00:00,20:00:00
+Cinema Complex F,11:00:00,22:00:00
+Hardware Store G,08:00:00,17:00:00
+Restaurant H,12:00:00,22:00:00
+Fitness Center I,05:00:00,23:00:00
+Pet Store J,10:00:00,19:00:00
+Pharmacy K,09:00:00,17:00:00
+Bookstore L,10:00:00,21:00:00
+Clothing Store M,11:00:00,19:00:00
+Convenience Store N,07:00:00,22:00:00
+Dentist Office O,09:00:00,18:00:00
+Electronics Store P,10:00:00,20:00:00
+Flower Shop Q,08:00:00,18:00:00
+Gym R,06:00:00,21:00:00
+Ice Cream Shop S,12:00:00,20:00:00
