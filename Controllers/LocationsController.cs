@@ -25,4 +25,24 @@ public class LocationsController : ControllerBase
             .Where(l => l.OpenTime <= startTime && l.CloseTime >= endTime)
             .ToListAsync();
     }
+
+    [HttpPost]
+    public async Task<ActionResult<Location>> Create(Location locationDto)
+    {
+        // Map LocationDto to Location entity
+        var location = new Location
+        {
+            Name = locationDto.Name,
+            OpenTime = locationDto.OpenTime,
+            CloseTime = locationDto.CloseTime
+        };
+
+        // Add new location to database
+        _context.Locations.Add(location);
+        await _context.SaveChangesAsync();
+
+        locationDto.Id = location.Id;
+
+        return locationDto;
+    }
 }
